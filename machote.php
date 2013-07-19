@@ -10,8 +10,11 @@
     <body >
     		<div class="header"></div>
     		<div class="box">
+            <div class="box_azul">
+            <div class="box_blanco">
             <!--.Inserte Contenido aqui..-->
             asdasdasdsad
+            </div>
 			</div>		
     </body>
 </html>
