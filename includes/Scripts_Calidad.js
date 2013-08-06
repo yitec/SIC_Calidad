@@ -20,7 +20,7 @@ $("#btn_guardar").click(function(event){
 		$.ajax({
         type: "POST",
 		async: false,
-        url: "../operaciones/Clase_Calidad.php",
+        url: "operaciones/Clase_Calidad.php",
 		data: "metodo=crea_categorias&txt_nombre="+$('#txt_nombre').val(),
 		 		
 		success: function(datos){

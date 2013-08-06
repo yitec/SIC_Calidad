@@ -69,11 +69,9 @@ Versi&oacute;n 1.0
            
 			</div>		
     </body>
-  <script src="includes/jquery-1.6.1.js" type="text/javascript"></script>
- <script src="includes/jquery-1.8.3.js" type="text/javascript"></script> 
-<script src="includes/jquery.pnotify.js" type="text/javascript"></script>
-<script src="includes/jquery.ui.core.js" type="text/javascript"></script> 
 
+<script src="includes/jquery-1.8.3.js" type="text/javascript"></script> 
+<script src="includes/jquery.pnotify.js" type="text/javascript"></script>
 <script src="includes/Scripts_Calidad.js" type="text/javascript"></script> 
 </html>
 
