@@ -10,11 +10,9 @@
     <body >
     		<div class="header"></div>
     		<div class="box">
-            <div class="box_azul">
-            <div class="box_blanco">
-            <!--.Inserte Contenido aqui..-->
-            asdasdasdsad
-            </div>
+           fsfffsf
+           sffsfds</br>
+           
 			</div>		
     </body>
 </html>

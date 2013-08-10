@@ -92,12 +92,12 @@ $("#btn_guardar").click(function(event){
         reportes=reportes+"/"+$(this).attr("numero");
         }      
       });
-      var parametros=$("#txt_nombre").val()+","+$("#txt_apellidos").val()+","+$("#txt_cedula").val()+","+$("#txt_usuario").val()+","+$("#txt_pass").val()+","+$("#txt_fecha").val()+","+accesos+","+reportes;
+      var parametros=$("#txt_nombre");
       $.ajax({
-        data: "metodo=crea_usuario&parametros="+parametros,
+        data: "metodo=crea_categoria&parametros="+parametros,
         type: "POST",
         dataType: "json",        
-        url: "operaciones/Clase_Usuarios.php",
+        url: "operaciones/Clase_Calidad.php",
                    
       success: function(data){     
       if (data.resultado=="Success"){

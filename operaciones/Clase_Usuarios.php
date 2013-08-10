@@ -1,6 +1,6 @@
 <?
 session_start();
-require_once('../cnx/conexion.php');
+include ('../cnx/dbconection.php');
 conectar();
 $hoy=date("Y-m-d H:i:s");
 /*****************************************************************************************************************
