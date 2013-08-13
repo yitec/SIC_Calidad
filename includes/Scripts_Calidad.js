@@ -24,10 +24,10 @@ $("#btn_guardar").click(function(event){
         url: "operaciones/Clase_Calidad.php",
 		data: "metodo=crea_categorias&parametros="+parametros,
 		 		
-		success: function(datos){
+		success: function(data){
 
 		
-		if (data	=="Success"){
+		if (data=="Success"){
 				$.pnotify({
 			    pnotify_title: 'Nuevo Categoria!!',
     			pnotify_text: 'La categoria fue guardada exitosamente.',
@@ -88,7 +88,7 @@ $("#btn_guardar_s").click(function(event){
 		success: function(datos){
 
 		
-		if (data	=="Success"){
+		if (datos=="Success"){
 				$.pnotify({
 			    pnotify_title: 'Nuevo Categoria!!',
     			pnotify_text: 'La categoria fue guardada exitosamente.',
@@ -139,7 +139,7 @@ $("#guardar_archivo").click(function(event){
 		success: function(datos){
 
 		
-		if (data	=="Success"){
+		if (datos=="Success"){
 				$.pnotify({
 			    pnotify_title: 'Nuevo Categoria!!',
     			pnotify_text: 'La categoria fue guardada exitosamente.',

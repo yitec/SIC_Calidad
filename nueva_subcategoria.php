@@ -1,5 +1,7 @@
 <?php
-include ('cnx/dbconection.php');
+require_once('cnx/conexion_calidad.php');
+conectar();
+//include ('cnx/dbconection.php');
 $consulta = "SELECT * FROM `tbl_categorias` WHERE `estado` =1 ORDER  BY `nombre_categoria` ASC";	
 
 $dt=mysql_query($consulta);

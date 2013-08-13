@@ -1,6 +1,7 @@
 <?php
-
-include ('../cnx/dbconection.php');
+include ('../cnx/conexion_calidad.php');
+conectar();
+//include ('../cnx/dbconection.php');
 $hoy=date("Y-m-d H:i:s");
 
 

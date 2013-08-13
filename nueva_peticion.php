@@ -1,5 +1,7 @@
 <?php
-include ('cnx/dbconection.php');
+include ('cnx/conexion_calidad.php');
+conectar();
+//include ('cnx/dbconection.php');
 $consulta = "SELECT id_archivo, nombre_archivo FROM `tbl_archivos` WHERE `estado` =1 ORDER  BY `nombre_archivo` ASC";	
 
 $dt=mysql_query($consulta);

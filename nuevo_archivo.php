@@ -1,5 +1,7 @@
 <?php
-include ('cnx/dbconection.php');
+include ('cnx/conexion_calidad.php');
+conectar();
+//include ('cnx/dbconection.php');
 $id = $_GET['id'];
 $consulta = "SELECT * FROM `tbl_categorias` WHERE `estado` =1 ORDER  BY `nombre_categoria` ASC";	
 
