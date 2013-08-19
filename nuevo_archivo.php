@@ -1,7 +1,6 @@
 <?php
-include ('cnx/conexion_calidad.php');
+include ('cnx/Conexion_Calidad.php');
 conectar();
-//include ('cnx/dbconection.php');
 $id = $_GET['id'];
 $consulta = "SELECT * FROM `tbl_categorias` WHERE `estado` =1 ORDER  BY `nombre_categoria` ASC";	
 
@@ -17,7 +16,7 @@ $dt=mysql_query($consulta);
         <link rel ="stylesheet" href="css/jquery.pnotify.default.css" type="text/css" />
         <link rel ="stylesheet" href="css/ui-lightness/jquery-ui-1.8.18.custom.css" type="text/css" />
         <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css' />
-        <title>XPD</title>
+        <title>XPD</title>      
             <script>
 function x(id){
 window.open("nuevo_archivo.php?id="+id,'_self');
@@ -73,39 +72,38 @@ window.open("nuevo_archivo.php?id="+id,'_self');
 	    </tr>
 	  </table>
 	<table>
-    
-	  <tr>
-	    <td width="178" class="Arial14Negro"><div align="center">Categoria</div></td>
-	    </tr>
-	  <tr>
-	    <td class="Arial14Negro"><label><select name="cmb_categoria" class="combos" id="cmb_categoria" onchange="x(this.value)">
-	      <option value="0">Seleccione</option>
-	      <?php				
+	<tr>
+	  <td width="178" class="Arial14Negro"><div align="center">
+	    <table>
+	      <tr>
+	        <td width="178" class="Arial14Negro"><div align="center">Categoria</div></td>
+	        </tr>
+	      <tr>
+	        <td class="Arial14Negro"><label>
+	          <select name="cmb_categoria" class="combos" id="cmb_categoria" >
+	            <option value="0">Seleccione</option>
+	            <?php				
 									while($info=mysql_fetch_array($dt)){
 										echo '
                       <option value="'.$info[0].'">'.utf8_encode($info[1]).'</option>';}?>
-	      </select> <script>
+	            </select>
+	          <script>
 		  document.frmArchivos.cmb_categoria.value= "<?php $_GET['id']?>";
-		     </script></label></td>
-	    </tr>
-	  <tr>
-	  
-	    </tr>
-	  </table>
+		     </script>
+	          </label></td>
+	        </tr>
+	      <tr></tr>
+	      </table>
+	  </div></td>
+	</tr>
+	</table>
 	<table>
 	  <tr>
 	    <td width="178" class="Arial14Negro"><div align="center">SubCategoria</div></td>
 	    </tr>
 	  <tr>
 	    <td class="Arial14Negro">
-		<select name="cmb_subcat" class="combos" id="cmb_categoria">
-	      <option selected="selected" value="0">Seleccione</option>
-		<?php $consulta2 = "SELECT `id_subcat`,`nombre_subcat` FROM `tbl_subcat` WHERE `id_categoria`= '".$id."'";	
-		  $dt2=mysql_query($consulta2);
-          				
-									while($info2=mysql_fetch_array($dt2)){
-										echo '
-                      <option value="'.$info2[0].'">'.utf8_encode($info2[1]).'</option>';}?></select> 
+		<select name="cmb_subcat" class="combos" id="cmb_subcategoria"></select> 
 	    </tr>
 	  </table>
 	<table>
@@ -113,7 +111,7 @@ window.open("nuevo_archivo.php?id="+id,'_self');
 	    <td width="178" class="Arial14Negro"><div align="center">Archivo</div></td>
 	    </tr>
 	  <tr>
-	    <td class="Arial14Negro"><input name="archivo" type="file" class="inputbox" id="archivo"></td>
+	    <td class="Arial14Negro"><input name="archivos[]" type="file" class="inputbox" id="archivos"></td>
 	    </tr>
 	  </table>
 	<p>&nbsp;</p>

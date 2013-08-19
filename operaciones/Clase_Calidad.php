@@ -1,7 +1,6 @@
 <?php
-include ('../cnx/conexion_calidad.php');
-conectar();
-//include ('../cnx/dbconection.php');
+
+include ('../cnx/Conexion_Calidad.php');
 $hoy=date("Y-m-d H:i:s");
 
 
@@ -9,11 +8,12 @@ $hoy=date("Y-m-d H:i:s");
 Accion:Ejecuta todas las operaciones sobre expedientes
 Parametros: Vector con lista de parametros segun metodo
 /****************************************************************************************************************/
-
+conectar();
 $metodo=$_POST['metodo'];
 $parametros=$_POST['parametros'];
 $usr = new Categorias;
 $usr->$metodo($parametros,$hoy);
+
 
 class Categorias{
 
@@ -27,31 +27,96 @@ class Categorias{
 
 	}
 
-function crea_categorias($parametros){
+	function crea_categorias($parametros){
+	
+		$v_datos=explode(",",$parametros);	
+		$result=mysql_query("INSERT INTO `tbl_categorias` (`id_categoria` ,`nombre_categoria` ,`fecha_creacion` ,`estado`)VALUES (NULL , '".utf8_encode($v_datos[0])."', NOW(), '1')");
+		if (!$result) {//si da error que me despliegue el error del query       		
+				$jsondata['resultado'] = 'Query invalido: ' . mysql_error() ;
+			}else{
+				$jsondata['resultado'] = 'Success';
+			}
+		echo json_encode($jsondata);
+	}
 
-	$v_datos=explode(",",$parametros);	
-	$result=mysql_query("INSERT INTO `tbl_categorias` (`id_categoria` ,`nombre_categoria` ,`fecha_creacion` ,`estado`)VALUES (NULL , '".utf8_encode($v_datos[0])."', 'NOW()', '1')");
-	if (!$result) {//si da error que me despliegue el error del query       		
-       		$jsondata['resultado'] = 'Query invalido: ' . mysql_error() ;
-        }else{
-        	$jsondata['resultado'] = 'Success';
-        }
-    echo json_encode($jsondata);
-}
+	function crea_subcategorias($parametros){
+	
+		$v_datos=explode(",",$parametros);	
+		$result=mysql_query("INSERT INTO `tbl_subcat` (`id_subcat`, `id_categoria`, `nombre_subcat`, `fecha_creacion`, `estado`)VALUES (NULL , '".($v_datos[0])."','".utf8_encode($v_datos[1])."', NOW(), '1')");
+		if (!$result) {//si da error que me despliegue el error del query       		
+				$jsondata['resultado'] = 'Query invalido: ' . mysql_error() ;
+			}else{
+				$jsondata['resultado'] = 'Success';
+			}
+		echo json_encode($jsondata);
+	}
+	
+	function seleccionar_subCategoria($parametros){
 
-function crea_subcategorias($parametros){
+		$id = $parametros;
+		$option  = '<option selected="selected" value="0">Seleccione</option>';
+		
+		$result=mysql_query("SELECT `id_subcat`,`nombre_subcat` FROM `tbl_subcat` WHERE `id_categoria`= '".$id."'");
+		while($info2=mysql_fetch_array($result)){
+			$option .= '<option value="'.$info2[0].'">'.utf8_encode($info2[1]).'</option>';
+		}
+		
+		if (!$result) {//si da error que me despliegue el error del query       		
+				$jsondata['resultado'] = 'Query invalido: ' . mysql_error() ;
+			}else{
+				$jsondata['resultado'] = $option;
+			}
+			echo json_encode($jsondata);
+	}
+	
+	
+	function seleccionar_archivos($parametros){
 
-	$v_datos=explode(",",$parametros);	
-	$result=mysql_query("INSERT INTO `tbl_subcat` (`id_subcat`, `id_categoria`, `nombre_subcat`, `fecha_creacion`, `estado`)VALUES (NULL , '".($v_datos[0])."','".utf8_encode($v_datos[1])."', 'NOW()', '1')");
-	if (!$result) {//si da error que me despliegue el error del query       		
-       		$jsondata['resultado'] = 'Query invalido: ' . mysql_error() ;
-        }else{
-        	$jsondata['resultado'] = 'Success';
-        }
-    echo json_encode($jsondata);
-}
+		$id = $parametros;
+		$option  = '<option selected="selected" value="0">Seleccione</option>';
+		
+		$result=mysql_query("SELECT * FROM `tbl_archivos` WHERE `id_subcat`= '".$id."'");
+		while($info2=mysql_fetch_array($result)){
+			$option .= '<option value="'.$info2[0].'">'.utf8_encode($info2[3]).'</option>';
+		}
+		
+		if (!$result) {//si da error que me despliegue el error del query       		
+				$jsondata['resultado'] = 'Query invalido: ' . mysql_error() ;
+			}else{
+				$jsondata['resultado'] = $option;
+			}
+			echo json_encode($jsondata);
+	}
+		
+	
 
-	}//end class
+	function crear_archivo($parametros){
+	
+		$v_datos=explode(",",$parametros);	
+		$result=mysql_query("INSERT INTO `tbl_archivos` (`id_archivo` ,`id_categoria` ,`id_subcat`,`nombre_archivo`,`version`,`fecha_creacion`,`id_usuario`,`url_archivo`,`estado`) VALUES (NULL , '".$v_datos[2]."', '".utf8_encode($v_datos[3])."','".utf8_encode($v_datos[0])."','".utf8_encode($v_datos[1])."',NOW(),'','".$v_datos[4]."','1')");
+		if (!$result) {//si da error que me despliegue el error del query       		
+				$jsondata['resultado'] = 'Query invalido: ' . mysql_error() ;
+			}else{
+				$jsondata['resultado'] = 'Success';
+			}
+		echo json_encode($jsondata);
+	}
+	
+	
+	function modificar_archivo($parametros){
+	
+		$v_datos=explode(",",$parametros);	
+		$result=mysql_query("INSERT INTO `tbl_pendientes` (`id_pendiente`,`id_archivo` ,`nuevo_archivo`,`comentario`,`fecha_solicitud`,`id_usuario`,`estado`) VALUES (NULL , '".$v_datos[0]."',  '".$v_datos[2]."','".utf8_encode($v_datos[1])."',NOW(),'','1')");
+		if (!$result) {//si da error que me despliegue el error del query       		
+				$jsondata['resultado'] = 'Query invalido: ' . mysql_error() ;
+			}else{
+				$jsondata['resultado'] = 'Success';
+				$subject = "Solicitud para modificar el archivo: ".$v_datos[0]." Motivo: ".$v_datos[1]." Nombre del nuevo archivo: ".$v_datos[2];
+				mail("jpgarcia01@gmail.com","Nuevo Pendiente.",$subject);
+			}
+		echo json_encode($jsondata);
+	}	
+}//end class
 
 
 

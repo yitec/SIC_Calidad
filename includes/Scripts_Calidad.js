@@ -24,10 +24,10 @@ $("#btn_guardar").click(function(event){
         url: "operaciones/Clase_Calidad.php",
 		data: "metodo=crea_categorias&parametros="+parametros,
 		 		
-		success: function(data){
+		success: function(datos){
 
 		
-		if (data=="Success"){
+		if (data	=="Success"){
 				$.pnotify({
 			    pnotify_title: 'Nuevo Categoria!!',
     			pnotify_text: 'La categoria fue guardada exitosamente.',
@@ -88,17 +88,17 @@ $("#btn_guardar_s").click(function(event){
 		success: function(datos){
 
 		
-		if (datos=="Success"){
+		if (data	=="Success"){
 				$.pnotify({
-			    pnotify_title: 'Nuevo Categoria!!',
-    			pnotify_text: 'La categoria fue guardada exitosamente.',
+			    pnotify_title: 'Nuevo Subcategoría!!',
+    			pnotify_text: 'La Subcategoría fue guardada exitosamente.',
     			pnotify_type: 'info',
     			pnotify_hide: true
 				});
 		}else{
 				$.pnotify({
 			    pnotify_title: 'Error!!',
-    			pnotify_text: 'La categoria ya existe',
+    			pnotify_text: 'La Subcategoría ya existe',
     			pnotify_type: 'info',
     			pnotify_hide: true
 				});
@@ -113,11 +113,42 @@ $("#btn_guardar_s").click(function(event){
 		
 limpiar();
 });
-   //***************************************************Guardar Archivo******************************************
+
+//**************************************************Subir Archivo ***************************************************
+function subirArchivo(url){
+	
+	var archivos = document.getElementById("archivos");//Damos el valor del input tipo file
+	var archivo = archivos.files; //Obtenemos el valor del input (los arcchivos) en modo de arreglo
+	var texto = '';
+	var nombreArchivo = '';
+	var data = new FormData();
+	for(i=0; i<archivo.length; i++){
+	data.append('archivo'+i,archivo[i]);	
+	}
+	data.append('texto',texto);
+
+	$.ajax({
+		url:url, //Url a donde la enviaremos
+		type:'POST', //Metodo que usaremos
+		contentType:false, //Debe estar en false para que pase el objeto sin procesar
+		async: false,
+		data:data, //Le pasamos el objeto que creamos con los archivos
+		processData:false, //Debe estar en false para que JQuery no procese los datos a enviar
+		cache:false, //Para que el formulario no guarde cache
+		/*success: function(data){
+			nombreArchivo = data;
+
+		}*/
+	}).done(function(data){nombreArchivo = data})
+
+	return nombreArchivo;
+}
+
+//***************************************************Guardar Archivo******************************************
 $("#guardar_archivo").click(function(event){
 		
 		event.preventDefault();	
-		if($("#txt_nombre").val() =="" ) {  
+		if($("#txt_nombre").length < 0) {  
         	$.pnotify({
 			    pnotify_title: 'Error ',
     			pnotify_text: 'Debes indicar un nombre',
@@ -127,44 +158,85 @@ $("#guardar_archivo").click(function(event){
         	return false;  
     	}  
   
-		
-	var parametros=$("#txt_nombre").val();
-		$.ajax({
-        type: "POST",
-		async: false,
-		dataType: "json",
-        url: "operaciones/Clase_Calidad.php",
-		data: "metodo=crea_categorias&parametros="+parametros,
-		 		
-		success: function(datos){
+		var archivo = subirArchivo('operaciones/subir.php');
 
-		
-		if (datos=="Success"){
-				$.pnotify({
-			    pnotify_title: 'Nuevo Categoria!!',
-    			pnotify_text: 'La categoria fue guardada exitosamente.',
-    			pnotify_type: 'info',
-    			pnotify_hide: true
-				});
-		}else{
-				$.pnotify({
-			    pnotify_title: 'Error!!',
-    			pnotify_text: 'La categoria ya existe',
-    			pnotify_type: 'info',
-    			pnotify_hide: true
-				});
-			
-		}
+		var parametros=$("#txt_nombre").val()+','+$("#txt_version").val()+','+$("#cmb_categoria").val()+','+$("#cmb_subcategoria").val()+','+archivo;
+		$.ajax({
+			type: "POST",
+			async: false,
+			dataType: "json",
+			url: "operaciones/Clase_Calidad.php",
+			data: "metodo=crear_archivo&parametros="+parametros,
+					
+			success: function(datos){
+
+				if (datos["resultado"]	=="Success"){
+						
+						$.pnotify({
+						pnotify_title: 'Nuevo Archivo!!',
+						pnotify_text: 'El archivo fue guardado exitosamente.',
+						pnotify_type: 'info',
+						pnotify_hide: true
+						});
+				}else{
+						$.pnotify({
+						pnotify_title: 'Error!!',
+						pnotify_text: 'El archivo ya existe',
+						pnotify_type: 'info',
+						pnotify_hide: true
+						});
+					
+				}
+						
 				
-				
-		}//end succces function
+				}//end succces function
 		});//end ajax function			
-		$('#txt_nombre').focus();	
 		
 		
-limpiar();
+//limpiar();
 }); 
    
+
+
+   
+ //***************************************************Modificar Archivo******************************************
+$("#btn_guardar_p").click(function(event){
+		
+		event.preventDefault();	
+
+  
+		var archivo = subirArchivo('operaciones/subirModificado.php');
+
+		var parametros=$("#cmb_archivos").val()+','+$("#txt_comentario").val()+','+archivo;
+		$.ajax({
+			type: "POST",
+			async: false,
+			dataType: "json",
+			url: "operaciones/Clase_Calidad.php",
+			data: "metodo=modificar_archivo&parametros="+parametros,	
+			success: function(datos){
+
+				if (datos["resultado"]	=="Success"){
+						$.pnotify({
+						pnotify_title: 'Nuevo Archivo!!',
+						pnotify_text: 'El archivo fue guardado exitosamente.',
+						pnotify_type: 'info',
+						pnotify_hide: true
+						});
+				}else{
+						$.pnotify({
+						pnotify_title: 'Error!!',
+						pnotify_text: 'El archivo ya existe',
+						pnotify_type: 'info',
+						pnotify_hide: true
+						});
+					
+				}
+				}//end succces function
+		});//end ajax function			
+
+//limpiar();
+});    
   
   /***************************************Limpiar todos los campos***************************************/
   function limpiar(){
@@ -203,3 +275,37 @@ limpiar();
   
   
   })// Document ready Final
+  
+  
+  /****************************************Seleccionar SubCategorias*******************************************************/
+  
+$("#cmb_categoria").change(function(event){
+	$.ajax({
+		type: "POST",
+		async: false,
+		dataType: "json",
+		url: "operaciones/Clase_Calidad.php",
+		data: "metodo=seleccionar_subCategoria&parametros="+$(this).val(),
+				
+		success: function(datos){
+			$("#cmb_subcategoria").html(datos["resultado"]);
+		}//end succces function
+	});//end ajax function	
+});
+
+
+  /****************************************Seleccionar SubCategorias*******************************************************/
+  
+$("#cmb_subcategoria").change(function(event){
+	$.ajax({
+		type: "POST",
+		async: false,
+		dataType: "json",
+		url: "operaciones/Clase_Calidad.php",
+		data: "metodo=seleccionar_archivos&parametros="+$(this).val(),
+				
+		success: function(datos){
+			$("#cmb_archivos").html(datos["resultado"]);
+		}//end succces function
+	});//end ajax function	
+});

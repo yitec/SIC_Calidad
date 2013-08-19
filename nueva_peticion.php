@@ -1,8 +1,7 @@
 <?php
-include ('cnx/conexion_calidad.php');
+include ('cnx/Conexion_Calidad.php');
 conectar();
-//include ('cnx/dbconection.php');
-$consulta = "SELECT id_archivo, nombre_archivo FROM `tbl_archivos` WHERE `estado` =1 ORDER  BY `nombre_archivo` ASC";	
+$consulta = "SELECT * FROM `tbl_categorias` WHERE `estado` =1 ORDER  BY `nombre_categoria` ASC";	
 
 $dt=mysql_query($consulta);
 
@@ -36,21 +35,44 @@ $dt=mysql_query($consulta);
 <div id="mainAzulFondo" style="padding:10px;" align="center">
 <div id="mainBlancoFondo" style=" width:750px;" align="center">
 	
-	<div align="center" class="Arial18Azul" style="margin-bottom:10px; margin-top:10px;">Crear Nueva Subcategoría</div>
+	<div align="center" class="Arial18Azul" style="margin-bottom:10px; margin-top:10px;">Petición para modificar archivo</div>
 	<table>
 	  <tr>
+	    <td width="178" class="Arial14Negro"><div align="center">Categoria:</div></td>
+	    </tr>
+	  <tr>
+	    <td class="Arial14Negro">
+	      <select name="cmb_categoria" class="combos" id="cmb_categoria" >
+	      <option value="0">Seleccione</option>
+	      <?php				
+									while($info=mysql_fetch_array($dt)){
+										echo '
+                      <option value="'.$info[0].'">'.utf8_encode($info[1]).'</option>';}?>
+	      </select> </td>
+	    </tr>
+ <tr>
+	    <td width="178" class="Arial14Negro"><div align="center">SubCategoria:</div></td>
+	    </tr>
+	  <tr>
+	    <td class="Arial14Negro">
+	      <select name="cmb_subcat" class="combos" id="cmb_subcategoria"></select>  </td>
+	    </tr>
+        
+ <tr>
 	    <td width="178" class="Arial14Negro"><div align="center">Archivo:</div></td>
 	    </tr>
 	  <tr>
 	    <td class="Arial14Negro">
-	      <select name="cmb_categoria" class="combos" id="cmb_categoria">
-              <option selected="selected" value="0">Seleccione</option>
-              <?php				
-									while($info=mysql_fetch_array($dt)){
-										echo '
-                      <option value="'.$info[0].'">'.utf8_encode($info[1]).'</option>';}?>
-            </select></td>
+	      <select name="cmb_archivos" class="combos" id="cmb_archivos"></select>  </td>
+	    </tr> 
+        
+ <tr>
+	    <td width="178" class="Arial14Negro"><div align="center">Archivo Nuevo:</div></td>
 	    </tr>
+	  <tr>
+	    <td class="Arial14Negro">
+	      <input name="archivos[]" type="file" class="inputbox" id="archivos">  </td>
+	    </tr>                           
 	  </table>
 	<table>
 	  <tr>
@@ -58,7 +80,7 @@ $dt=mysql_query($consulta);
 	    
 	    </tr>
 	  <tr>
-	    <td class="Arial14Negro"><textarea name="txt_subcat" cols="25" rows="100" class="inputbox" id="txt_subcat"></textarea></td>
+	    <td class="Arial14Negro"><textarea name="txt_comentario" cols="25" rows="100" class="inputbox" id="txt_comentario"></textarea></td>
 	   
 	    
 	    </tr>

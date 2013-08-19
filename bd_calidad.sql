@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-08-2013 a las 03:42:05
+-- Tiempo de generación: 19-08-2013 a las 18:26:45
 -- Versión del servidor: 5.5.27
 -- Versión de PHP: 5.4.7
 
@@ -33,6 +33,27 @@ CREATE TABLE IF NOT EXISTS `archivos_pendientes` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `tbl_admins`
+--
+
+CREATE TABLE IF NOT EXISTS `tbl_admins` (
+  `id_admin` int(10) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(20) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `correo` varchar(25) NOT NULL,
+  `estado` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id_admin`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `tbl_admins`
+--
+
+INSERT INTO `tbl_admins` (`id_admin`, `nombre`, `correo`, `estado`) VALUES
+(1, 'admin', 'jpgarcia01@gmail.com', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `tbl_archivos`
 --
 
@@ -40,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `tbl_archivos` (
   `id_archivo` int(10) NOT NULL AUTO_INCREMENT,
   `id_categoria` int(10) NOT NULL,
   `id_subcat` int(10) NOT NULL,
-  `nombre_archivo` varchar(100) NOT NULL,
+  `nombre_archivo` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `version` varchar(10) NOT NULL,
   `fecha_creacion` datetime NOT NULL,
   `id_usuario` int(10) NOT NULL,
@@ -69,53 +90,15 @@ CREATE TABLE IF NOT EXISTS `tbl_categorias` (
   `fecha_creacion` datetime NOT NULL,
   `estado` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1-activo/2-inactivo',
   PRIMARY KEY (`id_categoria`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=56 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=58 ;
 
 --
 -- Volcado de datos para la tabla `tbl_categorias`
 --
 
 INSERT INTO `tbl_categorias` (`id_categoria`, `nombre_categoria`, `fecha_creacion`, `estado`) VALUES
-(1, 'categoria0', '0000-00-00 00:00:00', 1),
-(2, 'categoria0', '2013-07-09 00:00:00', 1),
-(4, 'categoria4', '2013-07-29 00:00:00', 1),
-(7, 'sadsad', '0000-00-00 00:00:00', 1),
-(9, 'dsada', '0000-00-00 00:00:00', 1),
-(10, 'asss', '0000-00-00 00:00:00', 1),
-(11, 'asdsad', '0000-00-00 00:00:00', 1),
-(13, 'assada', '0000-00-00 00:00:00', 1),
-(16, 'sdadsad', '0000-00-00 00:00:00', 1),
-(17, 'adad', '0000-00-00 00:00:00', 1),
-(20, 'jkjkjkjkj', '0000-00-00 00:00:00', 1),
-(21, 'jkjkjkjkjss', '0000-00-00 00:00:00', 1),
-(24, 'opopos', '0000-00-00 00:00:00', 1),
-(25, 'opoposs', '0000-00-00 00:00:00', 1),
-(28, 'dsadaf3e', '0000-00-00 00:00:00', 1),
-(30, 'e33rdsad', '0000-00-00 00:00:00', 1),
-(32, 'undefined', '0000-00-00 00:00:00', 1),
-(33, 'undefined', '0000-00-00 00:00:00', 1),
-(34, 'undefined', '0000-00-00 00:00:00', 1),
-(35, 'undefined', '0000-00-00 00:00:00', 1),
-(36, 'undefined', '0000-00-00 00:00:00', 1),
-(37, 'undefined', '0000-00-00 00:00:00', 1),
-(38, 'nombre', '0000-00-00 00:00:00', 1),
-(39, 'nombre', '0000-00-00 00:00:00', 1),
-(40, 'nombre', '0000-00-00 00:00:00', 1),
-(41, 'nombre', '0000-00-00 00:00:00', 1),
-(42, 'nombre', '0000-00-00 00:00:00', 1),
-(43, 'nombre', '0000-00-00 00:00:00', 1),
-(44, 'nombre', '0000-00-00 00:00:00', 1),
-(45, 'nombre', '0000-00-00 00:00:00', 1),
-(46, 'nombre', '0000-00-00 00:00:00', 1),
-(47, 'nombre', '0000-00-00 00:00:00', 1),
-(48, 'nombre', '0000-00-00 00:00:00', 1),
-(49, 'nombre', '0000-00-00 00:00:00', 1),
-(50, 'nombre', '0000-00-00 00:00:00', 1),
-(51, 'nombre', '0000-00-00 00:00:00', 1),
-(52, 'nombre', '0000-00-00 00:00:00', 1),
-(53, 'nombre', '0000-00-00 00:00:00', 1),
-(54, 'nombre', '0000-00-00 00:00:00', 1),
-(55, 'nombre', '0000-00-00 00:00:00', 1);
+(1, 'Categoria0', '2013-08-19 00:00:00', 1),
+(2, 'Categoria1', '2013-08-19 00:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -126,7 +109,8 @@ INSERT INTO `tbl_categorias` (`id_categoria`, `nombre_categoria`, `fecha_creacio
 CREATE TABLE IF NOT EXISTS `tbl_pendientes` (
   `id_pendiente` int(10) NOT NULL AUTO_INCREMENT,
   `id_archivo` int(10) NOT NULL,
-  `comentario` varchar(150) NOT NULL,
+  `comentario` varchar(150) CHARACTER SET utf32 COLLATE utf32_spanish_ci NOT NULL,
+  `nuevo_archivo` varchar(20) NOT NULL,
   `fecha_solicitud` datetime NOT NULL,
   `id_usuario` varchar(10) NOT NULL,
   `estado` tinyint(1) NOT NULL DEFAULT '1',
@@ -137,9 +121,9 @@ CREATE TABLE IF NOT EXISTS `tbl_pendientes` (
 -- Volcado de datos para la tabla `tbl_pendientes`
 --
 
-INSERT INTO `tbl_pendientes` (`id_pendiente`, `id_archivo`, `comentario`, `fecha_solicitud`, `id_usuario`, `estado`) VALUES
-(1, 1, 'comentario del archivo', '2013-08-09 00:00:00', '25', 1),
-(2, 2, 'adasd dsdadsa asda ', '2013-08-09 00:00:00', '36', 1);
+INSERT INTO `tbl_pendientes` (`id_pendiente`, `id_archivo`, `comentario`, `nuevo_archivo`, `fecha_solicitud`, `id_usuario`, `estado`) VALUES
+(1, 1, 'comentario del archivo', '', '2013-08-09 00:00:00', '25', 1),
+(2, 2, 'adasd dsdadsa asda ', '', '2013-08-09 00:00:00', '36', 1);
 
 -- --------------------------------------------------------
 
@@ -150,7 +134,7 @@ INSERT INTO `tbl_pendientes` (`id_pendiente`, `id_archivo`, `comentario`, `fecha
 CREATE TABLE IF NOT EXISTS `tbl_subcat` (
   `id_subcat` int(10) NOT NULL AUTO_INCREMENT,
   `id_categoria` int(10) NOT NULL,
-  `nombre_subcat` varchar(50) NOT NULL,
+  `nombre_subcat` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `fecha_creacion` datetime NOT NULL,
   `estado` tinyint(1) NOT NULL,
   PRIMARY KEY (`id_subcat`)
@@ -161,10 +145,8 @@ CREATE TABLE IF NOT EXISTS `tbl_subcat` (
 --
 
 INSERT INTO `tbl_subcat` (`id_subcat`, `id_categoria`, `nombre_subcat`, `fecha_creacion`, `estado`) VALUES
-(1, 17, 'ejempla1', '2013-08-08 00:00:00', 0),
-(2, 17, 'ejempla1', '2013-08-08 00:00:00', 1),
-(3, 17, 'subcat1', '0000-00-00 00:00:00', 1),
-(4, 2, 'subcat2', '0000-00-00 00:00:00', 1);
+(1, 1, 'subacategoria1', '2013-08-08 00:00:00', 1),
+(2, 2, 'subcategoria2', '2013-08-08 00:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -175,6 +157,7 @@ INSERT INTO `tbl_subcat` (`id_subcat`, `id_categoria`, `nombre_subcat`, `fecha_c
 CREATE TABLE IF NOT EXISTS `tbl_usuarios` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(25) NOT NULL,
+  `correo` varchar(25) NOT NULL,
   `estado` tinyint(1) NOT NULL DEFAULT '1',
   `fecha_creacion` datetime NOT NULL,
   PRIMARY KEY (`id`)
@@ -184,8 +167,8 @@ CREATE TABLE IF NOT EXISTS `tbl_usuarios` (
 -- Volcado de datos para la tabla `tbl_usuarios`
 --
 
-INSERT INTO `tbl_usuarios` (`id`, `nombre`, `estado`, `fecha_creacion`) VALUES
-(1, 'usuario1', 1, '2013-08-08 00:00:00');
+INSERT INTO `tbl_usuarios` (`id`, `nombre`, `correo`, `estado`, `fecha_creacion`) VALUES
+(1, 'usuario1', 'jpgarcia01@gmail.com', 1, '2013-08-08 00:00:00');
 
 -- --------------------------------------------------------
 
