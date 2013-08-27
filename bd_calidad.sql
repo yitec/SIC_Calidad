@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-08-2013 a las 18:26:45
+-- Tiempo de generación: 27-08-2013 a las 06:33:17
 -- Versión del servidor: 5.5.27
 -- Versión de PHP: 5.4.7
 
@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `tbl_categorias` (
   `fecha_creacion` datetime NOT NULL,
   `estado` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1-activo/2-inactivo',
   PRIMARY KEY (`id_categoria`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=58 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Volcado de datos para la tabla `tbl_categorias`
@@ -109,7 +109,7 @@ INSERT INTO `tbl_categorias` (`id_categoria`, `nombre_categoria`, `fecha_creacio
 CREATE TABLE IF NOT EXISTS `tbl_pendientes` (
   `id_pendiente` int(10) NOT NULL AUTO_INCREMENT,
   `id_archivo` int(10) NOT NULL,
-  `comentario` varchar(150) CHARACTER SET utf32 COLLATE utf32_spanish_ci NOT NULL,
+  `comentario` varchar(150) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `nuevo_archivo` varchar(20) NOT NULL,
   `fecha_solicitud` datetime NOT NULL,
   `id_usuario` varchar(10) NOT NULL,
@@ -138,7 +138,7 @@ CREATE TABLE IF NOT EXISTS `tbl_subcat` (
   `fecha_creacion` datetime NOT NULL,
   `estado` tinyint(1) NOT NULL,
   PRIMARY KEY (`id_subcat`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Volcado de datos para la tabla `tbl_subcat`
