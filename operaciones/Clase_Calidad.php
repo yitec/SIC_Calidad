@@ -69,6 +69,8 @@ class Categorias{
 			echo json_encode($jsondata);
 	}
 	
+
+	
 	
 	function seleccionar_archivos($parametros){
 
@@ -90,7 +92,55 @@ class Categorias{
 		
 	
 
-	function crear_archivo($parametros){
+	function editar_categoria($parametros){
+	
+		$v_datos=explode(",",$parametros);	
+		$result=mysql_query("UPDATE `tbl_categorias` SET `nombre_categoria` = '".utf8_encode($v_datos[0])."' WHERE `tbl_categorias`.`id_categoria` ='".$v_datos[1]."';");
+		if (!$result) {//si da error que me despliegue el error del query       		
+				$jsondata['resultado'] = 'Query invalido: ' . mysql_error() ;
+			}else{
+				$jsondata['resultado'] = 'Success';
+			}
+		echo json_encode($jsondata);
+	}
+	
+		function eliminar_categoria($parametros){
+	
+		$v_datos=explode(",",$parametros);	
+		$result=mysql_query("UPDATE `tbl_categorias` SET `estado` = '0' WHERE `tbl_categorias`.`id_categoria` ='".$v_datos[1]."';");
+		if (!$result) {//si da error que me despliegue el error del query       		
+				$jsondata['resultado'] = 'Query invalido: ' . mysql_error() ;
+			}else{
+				$jsondata['resultado'] = 'Success';
+			}
+		echo json_encode($jsondata);
+	}
+	
+	function editar_subcategoria($parametros){
+	
+		$v_datos=explode(",",$parametros);	
+		$result=mysql_query("UPDATE `tbl_subcat` SET `nombre_subcat` = '".utf8_encode($v_datos[0])."' WHERE `tbl_subcat`.`id_subcat` ='".$v_datos[1]."';");
+		if (!$result) {//si da error que me despliegue el error del query       		
+				$jsondata['resultado'] = 'Query invalido: ' . mysql_error() ;
+			}else{
+				$jsondata['resultado'] = 'Success';
+			}
+		echo json_encode($jsondata);
+	}
+	
+	function eliminar_subcategoria($parametros){
+	
+		$v_datos=explode(",",$parametros);	
+		$result=mysql_query("UPDATE `tbl_subcat` SET `estado` = '0' WHERE `tbl_subcat`.`id_subcat` ='".$v_datos[1]."';");
+		if (!$result) {//si da error que me despliegue el error del query       		
+				$jsondata['resultado'] = 'Query invalido: ' . mysql_error() ;
+			}else{
+				$jsondata['resultado'] = 'Success';
+			}
+		echo json_encode($jsondata);
+	}
+	
+		function crear_archivo($parametros){
 	
 		$v_datos=explode(",",$parametros);	
 		$result=mysql_query("INSERT INTO `tbl_archivos` (`id_archivo` ,`id_categoria` ,`id_subcat`,`nombre_archivo`,`version`,`fecha_creacion`,`id_usuario`,`url_archivo`,`estado`) VALUES (NULL , '".$v_datos[2]."', '".utf8_encode($v_datos[3])."','".utf8_encode($v_datos[0])."','".utf8_encode($v_datos[1])."',NOW(),'','".$v_datos[4]."','1')");
@@ -101,7 +151,6 @@ class Categorias{
 			}
 		echo json_encode($jsondata);
 	}
-	
 	
 	function modificar_archivo($parametros){
 	

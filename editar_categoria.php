@@ -15,7 +15,8 @@ $dt=mysql_query($consulta);
         <link rel ="stylesheet" href="css/jquery.pnotify.default.css" type="text/css" />
         <link rel ="stylesheet" href="css/ui-lightness/jquery-ui-1.8.18.custom.css" type="text/css" />
         <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css' />
-        <title>XPD</title>  
+        <title>XPD</title>      
+
     </head>
 
     <body >
@@ -38,18 +39,18 @@ $dt=mysql_query($consulta);
 <div id="mainAzulFondo" style="padding:10px;" align="center">
 <div id="mainBlancoFondo" style=" width:750px;" align="center">
 	
-	<div align="center" class="Arial18Azul" style="margin-bottom:10px; margin-top:10px;"> Nuevo Archivo</div>
+	<div align="center" class="Arial18Azul" style="margin-bottom:10px; margin-top:10px;"> Editar Categoría</div>
    
-   
+    
     
 	<table>
     
 	  <tr>
-	    <td width="178" class="Arial14Negro"><div align="center">Nombre</div></td>
+	    <td width="178" class="Arial14Negro"><div align="center"></div></td>
 	    
 	    </tr>
 	  <tr>
-	    <td class="Arial14Negro"><input name="txt_nombre" type="text" class="inputbox" id="txt_nombre" /></td>
+	    <td class="Arial14Negro"></td>
 	   
 	    
 	    </tr>
@@ -57,14 +58,6 @@ $dt=mysql_query($consulta);
 	  </table>
 	<table>
 	  <tr>
-	    <td width="178" class="Arial14Negro"><div align="center">version</div></td>
-	    </tr>
-	  <tr>
-	    <td class="Arial14Negro"><input name="txt_version" type="text" class="inputbox" id="txt_version" /></td>
-	    </tr>
-	  </table>
-	<table>
-	<tr>
 	  <td width="178" class="Arial14Negro"><div align="center">
 	    <table>
 	      <tr>
@@ -72,14 +65,13 @@ $dt=mysql_query($consulta);
 	        </tr>
 	      <tr>
 	        <td class="Arial14Negro"><label>
-	          <select name="cmb_categoria" class="combos" id="cmb_categoria" >
+	          <select name="cmb_categoria_edit" class="combos" id="cmb_categoria_edit" >
 	            <option value="0">Seleccione</option>
 	            <?php				
 									while($info=mysql_fetch_array($dt)){
 										echo '
                       <option value="'.$info[0].'">'.utf8_encode($info[1]).'</option>';}?>
 	            </select>
-	    
 	          </label></td>
 	        </tr>
 	      <tr></tr>
@@ -89,26 +81,24 @@ $dt=mysql_query($consulta);
 	</table>
 	<table>
 	  <tr>
-	    <td width="178" class="Arial14Negro"><div align="center">SubCategoria</div></td>
+	    <td width="178" class="Arial14Negro"><div align="center">Nuevo Nombre:</div></td>
 	    </tr>
 	  <tr>
 	    <td class="Arial14Negro">
-		<select name="cmb_subcat" class="combos" id="cmb_subcategoria"></select> 
+		<input name="txt_nombre" class="inputbox" id="txt_nombre"/> 
 	    </tr>
 	  </table>
-	<table>
+      	<table>
 	  <tr>
-	    <td width="178" class="Arial14Negro"><div align="center">Archivo</div></td>
+	    <td width="178" class="Arial14Negro"><div align="center"></div></td>
 	    </tr>
 	  <tr>
-	    <td class="Arial14Negro"><input name="archivos[]" type="file" class="inputbox" id="archivos"></td>
-	    </tr>
+	    <td height="89" class="Arial14Negro">¿Eliminar Categoría? <span style="margin-top:20px; margin-bottom:20px;">
+	      <input name="eliminar_categoria" id="eliminar_categoria" type="image" src="img/delete_icon.png"  />
+	    </span></tr>
 	  </table>
 	<p>&nbsp;</p>
-	<p>&nbsp;</p>
-	<p>&nbsp;</p>
-    
-	<div align="center" style="margin-top:20px; margin-bottom:20px;"><input name="guardar_archivo" id="guardar_archivo" type="image" src="img/btn_guardar.png"  /></div>    
+	<div align="center" style="margin-top:20px; margin-bottom:20px;"><input name="guardar_editar_categoria" id="guardar_editar_categoria" type="image" src="img/btn_guardar.png"  /></div>    
 
 </div><!--fin cuadro blanco--> 
 </div><!--fin cuadro azul--> 

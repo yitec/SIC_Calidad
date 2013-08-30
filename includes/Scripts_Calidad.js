@@ -196,7 +196,186 @@ $("#guardar_archivo").click(function(event){
 //limpiar();
 }); 
    
+//***************************************************Editar Categoria******************************************
+$("#guardar_editar_categoria").click(function(event){
+		
+		event.preventDefault();	
+		if($("#txt_nombre").length < 0) {  
+        	$.pnotify({
+			    pnotify_title: 'Error ',
+    			pnotify_text: 'Debes indicar un nombre',
+    			pnotify_type: 'info',
+    			pnotify_hide: true
+				});
+        	return false;  
+    	}  
+  
 
+		var parametros=$("#txt_nombre").val()+','+$("#cmb_categoria_edit").val();
+		$.ajax({
+			type: "POST",
+			async: false,
+			dataType: "json",
+			url: "operaciones/Clase_Calidad.php",
+			data: "metodo=editar_categoria&parametros="+parametros,
+					
+			success: function(datos){
+
+				if (datos["resultado"]	=="Success"){
+						
+						$.pnotify({
+						pnotify_title: 'Nuevo Archivo!!',
+						pnotify_text: 'El nombre fue editado exitosamente.',
+						pnotify_type: 'info',
+						pnotify_hide: true
+						});
+				}else{
+						$.pnotify({
+						pnotify_title: 'Error!!',
+						pnotify_text: 'El nombre ya existe',
+						pnotify_type: 'info',
+						pnotify_hide: true
+						});
+					
+				}
+						
+				
+				}//end succces function
+		});//end ajax function			
+		
+		
+//limpiar();
+});
+
+//***************************************************Eliminar Categoria******************************************
+$("#eliminar_categoria").click(function(event){
+		
+		event.preventDefault();	
+		 {  
+        	if (confirm('¿Desea eliminar la categoría?')) {
+				var parametros=$("#txt_nombre").val()+','+$("#cmb_categoria_edit").val();
+		$.ajax({
+			type: "POST",
+			async: false,
+			dataType: "json",
+			url: "operaciones/Clase_Calidad.php",
+			data: "metodo=eliminar_categoria&parametros="+parametros,
+					
+			success: function(datos){
+
+				if (datos["resultado"]	=="Success"){
+						
+						alert('Categoria Eliminada!');
+				}else{
+						$.pnotify({
+						pnotify_hide: true
+						});
+					
+				}
+						
+				
+				}//end succces function
+		});//end ajax function	
+
+} else { 
+
+				
+		
+}
+} 		
+//limpiar();
+}); 
+
+
+//***************************************************Editar Subcategoria******************************************
+$("#guardar_editar_subcat").click(function(event){
+		
+		event.preventDefault();	
+		if($("#txt_nombre").length < 0) {  
+        	$.pnotify({
+			    pnotify_title: 'Error ',
+    			pnotify_text: 'Debes indicar un nombre',
+    			pnotify_type: 'info',
+    			pnotify_hide: true
+				});
+        	return false;  
+    	}  
+  
+
+		var parametros=$("#txt_nombre").val()+','+$("#cmb_subcat_edit").val();
+		$.ajax({
+			type: "POST",
+			async: false,
+			dataType: "json",
+			url: "operaciones/Clase_Calidad.php",
+			data: "metodo=editar_subcategoria&parametros="+parametros,
+					
+			success: function(datos){
+
+				if (datos["resultado"]	=="Success"){
+						
+						$.pnotify({
+						pnotify_title: 'Nuevo Archivo!!',
+						pnotify_text: 'El nombre fue editado exitosamente.',
+						pnotify_type: 'info',
+						pnotify_hide: true
+						});
+				}else{
+						$.pnotify({
+						pnotify_title: 'Error!!',
+						pnotify_text: 'El nombre ya existe',
+						pnotify_type: 'info',
+						pnotify_hide: true
+						});
+					
+				}
+						
+				
+				}//end succces function
+		});//end ajax function			
+		
+		
+//limpiar();
+}); 
+
+//***************************************************Eliminar Categoria******************************************
+$("#eliminar_subcategoria").click(function(event){
+		
+		event.preventDefault();	
+		 {  
+        	if (confirm('¿Desea eliminar la Subcategoría?')) {
+				var parametros=$("#txt_nombre").val()+','+$("#cmb_subcat_edit").val();
+		$.ajax({
+			type: "POST",
+			async: false,
+			dataType: "json",
+			url: "operaciones/Clase_Calidad.php",
+			data: "metodo=eliminar_subcategoria&parametros="+parametros,
+					
+			success: function(datos){
+
+				if (datos["resultado"]	=="Success"){
+						
+						alert('Categoria Eliminada!');
+				}else{
+						$.pnotify({
+						pnotify_hide: true
+						});
+					
+				}
+						
+				
+				}//end succces function
+		});//end ajax function	
+
+} else { 
+
+				
+		
+}
+} 		
+//limpiar();
+}); 
 
    
  //***************************************************Modificar Archivo******************************************
@@ -309,3 +488,20 @@ $("#cmb_subcategoria").change(function(event){
 		}//end succces function
 	});//end ajax function	
 });
+
+  /****************************************Ediar Categorias******************************************************
+  
+$("#cmb_categoria_edit").change(function(event){
+	$.ajax({
+		type: "POST",
+		async: false,
+		dataType: "json",
+		url: "operaciones/Clase_Calidad.php",
+		data: "metodo=editar_Categoria&parametros="+$(this).val(),
+				
+		success: function(datos){
+			$("#txt_categoria_edit").html('');
+			$("#txt_categoria_edit").html(datos["resultado"]);
+		}//end succces function
+	});//end ajax function	
+});*/

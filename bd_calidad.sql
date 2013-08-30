@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-08-2013 a las 06:33:17
+-- Tiempo de generación: 30-08-2013 a las 21:35:29
 -- Versión del servidor: 5.5.27
 -- Versión de PHP: 5.4.7
 
@@ -75,8 +75,8 @@ CREATE TABLE IF NOT EXISTS `tbl_archivos` (
 --
 
 INSERT INTO `tbl_archivos` (`id_archivo`, `id_categoria`, `id_subcat`, `nombre_archivo`, `version`, `fecha_creacion`, `id_usuario`, `url_archivo`, `estado`) VALUES
-(1, 17, 1, 'archivo1.doc', '1', '2013-08-09 00:00:00', 25, 'dada', 1),
-(2, 3, 4, 'archivo2.doc', '1', '2013-08-08 00:00:00', 36, 'dada', 1);
+(1, 1, 1, 'archivo1', '1', '2013-08-09 00:00:00', 25, 'archivo1.doc', 1),
+(2, 2, 2, 'archivo2', '1', '2013-08-08 00:00:00', 36, 'archivo2.doc', 1);
 
 -- --------------------------------------------------------
 
@@ -97,8 +97,8 @@ CREATE TABLE IF NOT EXISTS `tbl_categorias` (
 --
 
 INSERT INTO `tbl_categorias` (`id_categoria`, `nombre_categoria`, `fecha_creacion`, `estado`) VALUES
-(1, 'Categoria0', '2013-08-19 00:00:00', 1),
-(2, 'Categoria1', '2013-08-19 00:00:00', 1);
+(1, 'Categoria1', '2013-08-19 00:00:00', 1),
+(2, 'Categoria2', '2013-08-19 00:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -145,7 +145,7 @@ CREATE TABLE IF NOT EXISTS `tbl_subcat` (
 --
 
 INSERT INTO `tbl_subcat` (`id_subcat`, `id_categoria`, `nombre_subcat`, `fecha_creacion`, `estado`) VALUES
-(1, 1, 'subacategoria1', '2013-08-08 00:00:00', 1),
+(1, 1, 'Subcategoria1', '2013-08-08 00:00:00', 1),
 (2, 2, 'subcategoria2', '2013-08-08 00:00:00', 1);
 
 -- --------------------------------------------------------
@@ -173,6 +173,24 @@ INSERT INTO `tbl_usuarios` (`id`, `nombre`, `correo`, `estado`, `fecha_creacion`
 -- --------------------------------------------------------
 
 --
+-- Estructura Stand-in para la vista `vista_maestro`
+--
+CREATE TABLE IF NOT EXISTS `vista_maestro` (
+`id_archivo` int(10)
+,`id_categoria` int(10)
+,`id_subcat` int(10)
+,`nombre_archivo` varchar(100)
+,`version` varchar(10)
+,`fecha_creacion` datetime
+,`id_usuario` int(10)
+,`url_archivo` varchar(50)
+,`estado` tinyint(4)
+,`nombre_categoria` varchar(50)
+,`nombre_subcat` varchar(50)
+);
+-- --------------------------------------------------------
+
+--
 -- Estructura Stand-in para la vista `vista_pendientes`
 --
 CREATE TABLE IF NOT EXISTS `vista_pendientes` (
@@ -189,6 +207,15 @@ CREATE TABLE IF NOT EXISTS `vista_pendientes` (
 DROP TABLE IF EXISTS `archivos_pendientes`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `archivos_pendientes` AS select `tbl_archivos`.`id_archivo` AS `id_archivo`,`tbl_archivos`.`nombre_archivo` AS `nombre_archivo`,`tbl_pendientes`.`fecha_solicitud` AS `fecha_solicitud` from (`tbl_archivos` join `tbl_pendientes` on((`tbl_archivos`.`id_archivo` = `tbl_pendientes`.`id_archivo`))) limit 0,30;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `vista_maestro`
+--
+DROP TABLE IF EXISTS `vista_maestro`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vista_maestro` AS select `tbl_archivos`.`id_archivo` AS `id_archivo`,`tbl_archivos`.`id_categoria` AS `id_categoria`,`tbl_archivos`.`id_subcat` AS `id_subcat`,`tbl_archivos`.`nombre_archivo` AS `nombre_archivo`,`tbl_archivos`.`version` AS `version`,`tbl_archivos`.`fecha_creacion` AS `fecha_creacion`,`tbl_archivos`.`id_usuario` AS `id_usuario`,`tbl_archivos`.`url_archivo` AS `url_archivo`,`tbl_archivos`.`estado` AS `estado`,`tbl_categorias`.`nombre_categoria` AS `nombre_categoria`,`tbl_subcat`.`nombre_subcat` AS `nombre_subcat` from ((`tbl_archivos` join `tbl_categorias` on((`tbl_archivos`.`id_categoria` = `tbl_categorias`.`id_categoria`))) join `tbl_subcat` on((`tbl_archivos`.`id_subcat` = `tbl_subcat`.`id_subcat`)));
 
 -- --------------------------------------------------------
 

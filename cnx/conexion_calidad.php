@@ -2,7 +2,7 @@
 
 function conectar()
 {	
-	$_SESSION['connectid'] = mysql_connect('localhost', 'root', '123');
+	$_SESSION['connectid'] = mysql_connect('localhost', 'root', '');
 	mysql_select_db("bd_calidad"); 
 }
 

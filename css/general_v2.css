@@ -127,6 +127,34 @@ a:hover
   -webkit-border-radius: 4px; -moz-border-radius: 4px;
 }
 
+.maestro_titulo{
+   font-size: 12px;
+   float:left;
+  color: #000;
+  border: 1px solid #DBDBDB;
+  width:143px;
+  font-size:14px;
+color:#000000;
+font-family:arial;
+font-weight:bold;
+  height: 24px;
+  padding:2px;
+  -webkit-border-radius: 4px; -moz-border-radius: 4px;
+}
+.maestro_lista{
+	font-family: Verdana, Geneva, sans-serif;
+   float:left;
+  color: #000;
+  font-size:14px;
+  border: 1px solid #DBDBDB;
+  width:143px;
+  
+  height: auto;
+  padding:2px;
+  -webkit-border-radius: 4px; -moz-border-radius: 4px;
+}
+
+
 /***********************************************Letras**********************************************/
 .Arial14Negro{
 font-size:14px;
