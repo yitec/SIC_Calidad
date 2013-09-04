@@ -264,7 +264,7 @@ $("#eliminar_categoria").click(function(event){
 			success: function(datos){
 
 				if (datos["resultado"]	=="Success"){
-						
+						location.href=location.href;
 						alert('Categoria Eliminada!');
 				}else{
 						$.pnotify({
@@ -355,7 +355,7 @@ $("#eliminar_subcategoria").click(function(event){
 			success: function(datos){
 
 				if (datos["resultado"]	=="Success"){
-						
+						location.href=location.href;
 						alert('Categoria Eliminada!');
 				}else{
 						$.pnotify({
@@ -377,6 +377,49 @@ $("#eliminar_subcategoria").click(function(event){
 //limpiar();
 }); 
 
+//***************************************************Rechazar Peticion******************************************
+$("#btn_rechazar").click(function(event){
+		
+		event.preventDefault();	
+		 {  
+        	if (confirm('¿Desea rechazar la Solicitud?')) {
+				var parametros=$("#btn_rechazar").val();
+		$.ajax({
+			type: "POST",
+			async: false,
+			dataType: "json",
+			url: "operaciones/Clase_Calidad.php",
+			data: "metodo=rechazar_peticion&parametros="+parametros,
+					
+			success: function(datos){
+
+				if (datos["resultado"]	=="Success"){
+						  location.href=location.href;
+						alert('Solicitud Eliminada!');
+						
+						 
+						
+						
+						
+				}else{
+						$.pnotify({
+						pnotify_hide: true
+						});
+					
+				}
+						
+				
+				}//end succces function
+		});//end ajax function	
+
+} else { 
+
+				
+		
+}
+} 		
+//limpiar();
+}); 
    
  //***************************************************Modificar Archivo******************************************
 $("#btn_guardar_p").click(function(event){

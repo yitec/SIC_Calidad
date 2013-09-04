@@ -1,10 +1,4 @@
-<?php
-include ('cnx/dbconection.php');
-$consulta = "SELECT * FROM `tbl_pendientes` WHERE `estado` = 1  ORDER  BY `fecha_solicitud` ASC";	
-
-$dt=mysql_query($consulta);
-
-?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
@@ -34,19 +28,53 @@ $dt=mysql_query($consulta);
 <div id="mainAzulFondo" style="padding:10px;" align="center">
 <div id="mainBlancoFondo" style=" width:750px;" align="center">
 	
-	<div align="center" class="Arial18Azul" style="margin-bottom:10px; margin-top:10px;">Peticiones Pendientes:</div>
-    <div align="center" class=" Arial14Negro" style="margin-bottom:10px; margin-top:10px;">
-    <div class="lista_titulo">Archivo</div><div class="lista_titulo">Comentario</div><div class="lista_titulo">Fecha</div></br></br></br></br>
-     <?php				
-									while($info=mysql_fetch_array($dt)){
-										$idpeticion=$info[0];
-										echo '
-    <div class="lista">'.utf8_encode($info[1]).'</div><div class="lista">'.utf8_encode($info[2]).'</div><div class="lista">'.utf8_encode($info[4]).'</div><div class="lista_botones">
-      <input name="button" id="btn_aprobar" value="" type="image" src="img/btn_aprobar.png">
-      <input  name="button2" id="btn_rechazar" value="'.$idpeticion.'" type="image" src="img/btn_rechazar.png">
-    </div></br></br></br></br></br></br>';}?>
-    </div>
-	<div align="center" style="margin-top:20px; margin-bottom:20px;"></div>    
+	<div align="center" class="Arial18Azul" style="margin-bottom:10px; margin-top:10px;">Buscar Archivo:</div>
+	<script src="includes/jquery-1.6.1.js" type="text/javascript"></script>
+<script language="JavaScript" src="includes/jquery.watermarkinput.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+$(".busca").keyup(function() //se crea la funcioin keyup
+{
+var texto = $(this).val();//se recupera el valor de la caja de texto y se guarda en la variable texto
+var dataString = 'palabra='+ texto;//se guarda en una variable nueva para posteriormente pasarla a search.php
+if(texto=='')//si no tiene ningun valor la caja de texto no realiza ninguna accion
+{
+}
+else
+{
+$.ajax({//metodo ajax
+type: "POST",//aqui puede  ser get o post
+url: "operaciones/search.php",//la url adonde se va a mandar la cadena a buscar
+data: dataString,
+cache: false,
+success: function(html)//funcion que se activa al recibir un dato
+{
+$("#display").html(html).show();// funcion jquery que muestra el div con identificador display, como formato html, tambien puede ser .text
+	}
+});
+}return false;    
+});
+});
+jQuery(function($){//funcion jquery que muestra el mensaje "Buscar archivos..." en la caja de texto
+   $("#caja_busqueda").Watermark("Buscar archivos...");
+   });
+</script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Buscar Archivos</title>
+</head>
+
+<body>
+
+ <div style=" width:250px; padding-right:100px; " >
+  <input type="text" class="busca" id="caja_busqueda" name="clave" /><br />
+</div> 
+<div id="display"></div>
+<p>
+</br>
+</br>
+</br>    
 
 </div><!--fin cuadro blanco--> 
 </div><!--fin cuadro azul--> 
@@ -74,9 +102,9 @@ Versi&oacute;n 1.0
            
 			</div>		
     </body>
-  <script src="includes/jquery-1.8.3.js" type="text/javascript"></script>
-<script src="includes/jquery.pnotify.js" type="text/javascript"></script> 
 
+<script src="includes/jquery-1.8.3.js" type="text/javascript"></script> 
+<script src="includes/jquery.pnotify.js" type="text/javascript"></script>
 <script src="includes/Scripts_Calidad.js" type="text/javascript"></script> 
 </html>
 

@@ -140,6 +140,18 @@ class Categorias{
 		echo json_encode($jsondata);
 	}
 	
+	  function rechazar_peticion($parametros){
+  
+	  $v_datos=explode(",",$parametros);	
+	  $result=mysql_query("UPDATE `bd_calidad`.`tbl_pendientes` SET `estado` = '0' WHERE `tbl_pendientes`.`id_pendiente` ='".$v_datos[0]."';");
+	  if (!$result) {//si da error que me despliegue el error del query       		
+			  $jsondata['resultado'] = 'Query invalido: ' . mysql_error() ;
+		  }else{
+			  $jsondata['resultado'] = 'Success';
+		  }
+	  echo json_encode($jsondata);
+  }
+  
 		function crear_archivo($parametros){
 	
 		$v_datos=explode(",",$parametros);	
