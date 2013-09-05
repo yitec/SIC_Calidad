@@ -148,9 +148,39 @@ class Categorias{
 			  $jsondata['resultado'] = 'Query invalido: ' . mysql_error() ;
 		  }else{
 			  $jsondata['resultado'] = 'Success';
+			  $subject = "Solicitud para modificar el archivo Denegada";
+				mail("jpgarcia01@gmail.com","Nuevo Pendiente.",$subject);
 		  }
 	  echo json_encode($jsondata);
   }
+  
+  function aceptar_peticion($parametros){
+  
+	  $v_datos=explode(",",$parametros);
+	  $origen = "../archivos/pendientes/";
+	  $destino = '../archivos/ControlCalidad/';
+	  $archivo = $v_datos[2];
+    if (copy($origen.$archivo, $destino.$archivo)) {
+
+      $consulta=mysql_query("UPDATE `bd_calidad`.`tbl_pendientes` SET `estado` = '0' WHERE `tbl_pendientes`.`id_pendiente` ='".$v_datos[0]."';");
+	  $result=mysql_query("UPDATE `bd_calidad`.`tbl_archivos` SET `url_archivo` = '".$v_datos[2]."' WHERE `tbl_archivos`.`id_archivo` ='".$v_datos[1]."';");
+	  }
+	  else {
+
+           echo "error al copiar el archivo";            
+		   echo json_encode($jsondata);
+		     }
+	  if (!$result) {//si da error que me despliegue el error del query       		
+			  $jsondata['resultado'] = 'Query invalido: ' . mysql_error() ;
+		  }else{
+			  	
+			  $jsondata['resultado'] = 'Success';
+			  $subject = "Solicitud para modificar el archivo Aceptada";
+				mail("jpgarcia01@gmail.com","Nuevo Pendiente.",$subject);
+
+          }
+
+        }    
   
 		function crear_archivo($parametros){
 	

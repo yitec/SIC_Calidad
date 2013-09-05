@@ -420,6 +420,51 @@ $("#btn_rechazar").click(function(event){
 } 		
 //limpiar();
 }); 
+
+//***************************************************Aceptar Peticion******************************************
+$("#btn_aprobar").click(function(event){
+		
+		event.preventDefault();	
+		 {  
+        	if (confirm('¿Desea aceptar la Solicitud?')) {
+				var parametros=$("#btn_aprobar").val()+','+$("#id_archivo").val()+','+$("#nuevo_archivo").val();
+		$.ajax({
+			type: "POST",
+			async: false,
+			dataType: "json",
+			url: "operaciones/Clase_Calidad.php",
+			data: "metodo=aceptar_peticion&parametros="+parametros,
+					
+			success: function(datos){
+
+				if (datos["resultado"]	=="Success"){
+						  location.href=location.href;
+						alert('Solicitud Aceptada!');
+						
+						 
+						
+						
+						
+				}else{
+						$.pnotify({
+						pnotify_hide: true
+						});
+					
+				}
+						
+				
+				}//end succces function
+		});//end ajax function	
+
+} else { 
+
+				
+		
+}
+} 		
+//limpiar();
+}); 
+   
    
  //***************************************************Modificar Archivo******************************************
 $("#btn_guardar_p").click(function(event){
